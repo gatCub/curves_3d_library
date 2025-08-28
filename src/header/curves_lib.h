@@ -3,10 +3,8 @@
 
 #pragma once
 
-#include <random>
 #include <memory>
 #include <vector>
-#include <cmath>
 
 /*Вспомогательаня структура для трехмерной точки.*/
 struct  Point3D
@@ -86,10 +84,9 @@ private:
     double _radius, _step;
 };
 
+//Интерфейс для рандомного создания кривых
 
-namespace CurveFactory {
-    std::unique_ptr<Curve> createRandomCurve (std::mt19937&);
-    std::vector<std::unique_ptr<Curve>> createRandomArrayCurve(size_t);
-}
+void initialCurveFactories();
+std::vector<std::unique_ptr<Curve>> createRandomArrayCurve(size_t);
 
 #endif
