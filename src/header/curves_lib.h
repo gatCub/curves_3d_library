@@ -27,11 +27,27 @@ struct Curve
     virtual ~Curve() = default;
     virtual Point3D getPoint(double t) const = 0;
     virtual Vector3D getDerivat(double t) const = 0;
-    virtual double getRadius() const = 0;
-
 };
 
-struct Circle: Curve 
+struct IHasRadius 
+{
+    virtual ~IHasRadius() = default;
+    virtual double getRadius() const = 0;
+};
+
+struct IHasSecondaryRadius
+{
+    virtual ~IHasSecondaryRadius() = default;
+    virtual double getSecondaryRadius() const = 0;
+};
+
+struct IHasStep
+{
+    virtual ~IHasStep() = default;
+    virtual double getStep() const = 0;
+};
+
+struct Circle final: Curve, IHasRadius 
 {
     Circle(double r):  _radius(r) {}
 
@@ -41,6 +57,31 @@ struct Circle: Curve
 
 private:
     double _radius;
+};
+
+struct Elipse final: Curve, IHasRadius, IHasSecondaryRadius 
+{
+    Elipse(double rX, double rY): _radiusX(rX), _radiusY(rY) {}
+
+    Point3D getPoint(double t) const override;
+    Vector3D getDerivat(double t) const override;
+    double getRadius() const override { return _radiusX; }
+    double getSecondaryRadius() const override { return _radiusY; }
+
+private: 
+    double _radiusX, _radiusY;
+};
+
+struct Helix final: Curve, IHasRadius, IHasStep 
+{
+    Helix(double r, double s): _radius(r), _step(s) {}
+    Point3D getPoint(double t) const override;
+    Vector3D getDerivat(double t) const override;
+    double getRadius() const override { return _radius; }
+    double getStep() const override { return _step; }
+
+private:
+    double _radius, _step;
 };
 
 
