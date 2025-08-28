@@ -6,6 +6,7 @@
 #include <random>
 #include <memory>
 #include <vector>
+#include <cmath>
 
 /*Вспомогательаня структура для трехмерной точки.*/
 struct  Point3D
@@ -25,8 +26,8 @@ struct  Vector3D
 struct Curve
 {
     virtual ~Curve() = default;
-    virtual Point3D getPoint(double t) const = 0;
-    virtual Vector3D getDerivat(double t) const = 0;
+    virtual Point3D getPoint(double) const = 0;
+    virtual Vector3D getDerivat(double) const = 0;
 };
 
 struct IHasRadius 
@@ -47,12 +48,13 @@ struct IHasStep
     virtual double getStep() const = 0;
 };
 
+
 struct Circle final: Curve, IHasRadius 
 {
     Circle(double r):  _radius(r) {}
 
-    Point3D getPoint(double t) const override;
-    Vector3D getDerivat(double t) const override;
+    Point3D getPoint(double) const override;
+    Vector3D getDerivat(double) const override;
     double getRadius() const override { return _radius; }
 
 private:
@@ -63,8 +65,8 @@ struct Elipse final: Curve, IHasRadius, IHasSecondaryRadius
 {
     Elipse(double rX, double rY): _radiusX(rX), _radiusY(rY) {}
 
-    Point3D getPoint(double t) const override;
-    Vector3D getDerivat(double t) const override;
+    Point3D getPoint(double) const override;
+    Vector3D getDerivat(double) const override;
     double getRadius() const override { return _radiusX; }
     double getSecondaryRadius() const override { return _radiusY; }
 
@@ -75,8 +77,8 @@ private:
 struct Helix final: Curve, IHasRadius, IHasStep 
 {
     Helix(double r, double s): _radius(r), _step(s) {}
-    Point3D getPoint(double t) const override;
-    Vector3D getDerivat(double t) const override;
+    Point3D getPoint(double) const override;
+    Vector3D getDerivat(double) const override;
     double getRadius() const override { return _radius; }
     double getStep() const override { return _step; }
 
@@ -86,8 +88,8 @@ private:
 
 
 namespace CurveFactory {
-    std::unique_ptr<Curve> createRandomCurve (std::mt19937& genr);
-    std::vector<std::unique_ptr<Curve>> createRandomArrayCurve(std::mt19937& genr, size_t count);
+    std::unique_ptr<Curve> createRandomCurve (std::mt19937&);
+    std::vector<std::unique_ptr<Curve>> createRandomArrayCurve(size_t);
 }
 
 #endif
