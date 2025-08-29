@@ -1,7 +1,6 @@
 #include "header\curves_lib.h"
 #include "header\curvefactory.h"
 
-#include <stdexcept>
 #include <random>
 #include <cmath>
 

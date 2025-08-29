@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <vector>
+#include <stdexcept>
 
 /*Вспомогательаня структура для трехмерной точки.*/
 struct  Point3D
@@ -49,7 +50,9 @@ struct IHasStep
 
 struct Circle final: Curve, IHasRadius 
 {
-    Circle(double r):  _radius(r) {}
+    Circle(double r): _radius(r) {
+        if (_radius <= 0) throw std::invalid_argument("Circle radius must positive");
+    }
 
     Point3D getPoint(double) const override;
     Vector3D getDerivat(double) const override;
@@ -61,7 +64,9 @@ private:
 
 struct Elipse final: Curve, IHasRadius, IHasSecondaryRadius 
 {
-    Elipse(double rX, double rY): _radiusX(rX), _radiusY(rY) {}
+    Elipse(double rX, double rY): _radiusX(rX), _radiusY(rY) {
+        if (_radiusX <= 0 || _radiusY <= 0) throw std::invalid_argument("Elipse radius must positive");
+    }
 
     Point3D getPoint(double) const override;
     Vector3D getDerivat(double) const override;
@@ -74,7 +79,10 @@ private:
 
 struct Helix final: Curve, IHasRadius, IHasStep 
 {
-    Helix(double r, double s): _radius(r), _step(s) {}
+    Helix(double r, double s): _radius(r), _step(s) {
+        if (_radius <= 0) throw std::invalid_argument("Helix radius must positive");
+    }
+
     Point3D getPoint(double) const override;
     Vector3D getDerivat(double) const override;
     double getRadius() const override { return _radius; }
