@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RU Библиотека кривых 
   > [!IMPORTANT]
   > Внимание, рекрутер! 👀
@@ -20,18 +21,13 @@
 
 
 
+=======
+>>>>>>> parent of 14ea40d (Update README.md)
 # EN Curve library
-
 ## About the project
-A library for working with a hierarchy of 3D geometric curves, implemented in C++ using modern language features and STL.
+    Library for creating and working with random three-dimensional curves.
 
+# RU Библиотека кривых 
+## О проекте
+    Библиотека создания случайных трехмерных кривых и работы с ними.
 
-## Features
-* Support for three types of 3D curves: circles, ellipses, and 3D helixes
-* Factory for random curve creation with guaranteed valid parameters
-* Parallel computations using STL algorithms
-
-
-## Requirements
-* C++17 compatible compiler (GCC, Clang, MSVC)
-* CMake 3.10 or higher
